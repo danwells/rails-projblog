@@ -1,7 +1,9 @@
 class PagesController < ApplicationController
   
   def bloghome
-    @test = "@test (from controller)"
+    @page_title = Title.find_by_titletype("page")
+    
+    # binding.pry
   end
   
 end

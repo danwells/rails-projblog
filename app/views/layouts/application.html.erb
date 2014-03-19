@@ -1,14 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<style>
+	.banner {
+		padding: 10px;
+		margin: 5px;
+		background-color: #0000E6;
+		color: #ADD8E6;
+	}
+
+	a:link {
+		color: #ADD8E6;
+	}
+
+	a:visited {
+		color: #CF88E6;
+	}
+
+	a:active {
+		color: red;
+	}
+
+	#nav_choices {
+		float:left;
+		width:250px;
+	}
+
+	#search_box {
+		float:right;
+		width:250px;
+	}
+
+	#header_about {
+		text-align: center;
+		clear:both;
+	}
+
+	#bloghome span {
+		text-decoration: underline;
+		background-color: yellow;
+	}
+	</style>
+	
   <title>RailsProjblog</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<div class="banner">
+		<h1><%= @page_title.titlestring %></h1>
+		
+		<div id="nav_choices">
+			Navigation (Current Choice - <%= @nav_choice %>):
+			<form action="nav_menu_select" method="post">
+				<select name="menu_selection" id="menu_selection">
+					<option value="blog" <%= "selected" if @nav_choice == "blog" %>>Blog Home</option>
+					<option value="toc" <%= "selected" if @nav_choice == "toc" %>>Table of Contents</option>
+					<option value="browse" <%= "selected" if @nav_choice == "browse" %>>Browse Articles</option>
+					<option value="options" <%= "selected" if @nav_choice == "options" %>>Display Options</option>			
+				</select>		
+				<input type="submit" value="Continue &rarr;">
+			</form>
+		</div>
+	
+		<div id="search_box">
+			<form action="search" method="get">
+				<label for="search_text">Search:</label><br>
+				<input type="text" name="search_text" placeholder="search phrase">
+				<input type="submit" value="Continue &rarr;"><br>
+				Previous Search: <%= "'#{@cur_search}'" %>	
+			</form>
+		</div>
+	
+		<div id="header_about">
+			<a href="/about">About</a>
+		</div>
+	</div>
 
 <%= yield %>
 
+	<div class="banner">
+		<h2>Placeholder Footer for blog</h2>
+		<p> TO DO: add contact info, about page, reference links </p>
+	</div>
 </body>
 </html>
